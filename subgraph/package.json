@@ -1,0 +1,31 @@
+{
+  "name": "linea-attestation-registry-subgraph",
+  "version": "0.0.1",
+  "description": "Subgraph to index the main objects of Verax",
+  "keywords": [
+    "linea-attestation-registry",
+    "blockchain",
+    "attestation",
+    "ethereum",
+    "foundry",
+    "smart-contracts",
+    "solidity"
+  ],
+  "repository": "github.com/Consensys/linea-attestation-registry",
+  "license": "MIT",
+  "author": "Consensys",
+  "scripts": {
+    "build:v1": "yarn codegen:v1 && graph build subgraph-v1.yaml",
+    "codegen:v1": "graph codegen subgraph-v1.yaml",
+    "deploy:v1": "graph deploy --version-label v0.0.1 --studio verax-v1-hashkey subgraph-v1.yaml",
+    "test": "yarn codegen:v1 && graph test",
+    "test:coverage": "graph test -c",
+    "test:docker": "graph test -d"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "0.73.0",
+    "@graphprotocol/graph-ts": "0.31.0",
+    "assemblyscript": "0.19.10",
+    "matchstick-as": "0.6.0"
+  }
+}

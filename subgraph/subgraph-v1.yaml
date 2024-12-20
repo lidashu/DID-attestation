@@ -1,0 +1,92 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema-v1.graphql
+dataSources:
+  - kind: ethereum
+    name: AttestationRegistry
+    network: mainnet
+    source:
+      abi: AttestationRegistry
+      address: "0x0638B972f39847B4f67c327A6D51B58341c5e44F"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Attestation
+      abis:
+        - name: AttestationRegistry
+          file: ./abis/AttestationRegistry.json
+      eventHandlers:
+        - event: AttestationRegistered(indexed bytes32)
+          handler: handleAttestationRegistered
+        - event: AttestationRevoked(bytes32)
+          handler: handleAttestationRevoked
+        - event: AttestationReplaced(bytes32,bytes32)
+          handler: handleAttestationReplaced
+        - event: VersionUpdated(uint16)
+          handler: handleVersionUpdated
+      file: ./src/attestation-registry.ts
+  - kind: ethereum
+    name: ModuleRegistry
+    network: mainnet
+    source:
+      abi: ModuleRegistry
+      address: "0x32C10e8f48a0dDb11dADD752AFAa01012923433F"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Module
+      abis:
+        - name: ModuleRegistry
+          file: ./abis/ModuleRegistry.json
+      eventHandlers:
+        - event: ModuleRegistered(string,string,address)
+          handler: handleModuleRegistered
+      file: ./src/module-registry.ts
+  - kind: ethereum
+    name: PortalRegistry
+    network: mainnet
+    source:
+      abi: PortalRegistry
+      address: "0x6ad68fC3A8276CE5FAD8D1545AAc19659CA292a4"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Portal
+      abis:
+        - name: PortalRegistry
+          file: ./abis/PortalRegistry.json
+      eventHandlers:
+        - event: PortalRegistered(string,string,address)
+          handler: handlePortalRegistered
+        - event: IssuerAdded(address)
+          handler: handleIssuerAdded
+        - event: IssuerRemoved(address)
+          handler: handleIssuerRemoved
+      file: ./src/portal-registry.ts
+  - kind: ethereum
+    name: SchemaRegistry
+    network: mainnet
+    source:
+      abi: SchemaRegistry
+      address: "0xAD60b34E07261B5d27C49fA5835A5c0379763e1C"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Schema
+      abis:
+        - name: SchemaRegistry
+          file: ./abis/SchemaRegistry.json
+      eventHandlers:
+        - event: SchemaCreated(indexed bytes32,string,string,string,string)
+          handler: handleSchemaCreated
+        - event: SchemaContextUpdated(indexed bytes32)
+          handler: handleSchemaContextUpdated
+      file: ./src/schema-registry.ts
